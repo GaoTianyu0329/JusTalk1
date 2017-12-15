@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="label_1">
+        <item>全部</item>
+        <item>官方</item>
+        <item>个人</item>
+    </array>
+    <array name="label_2">
+        <item>全部</item>
+        <item>官方通知</item>
+        <item>经验交流</item>
+    </array>
+    <array name="label_3">
+        <item>全部</item>
+        <item>经验分享</item>
+        <item>问题询问</item>
+    </array>
+    <array name="label_4">
+        <item>全部</item>
+        <item>哲学类</item>
+        <item>社会学类</item>
+        <item>经济学类</item>
+        <item>财政学类</item>
+        <item>金融学类</item>
+        <item>经济与贸易类</item>
+        <item>法学类</item>
+        <item>政治学类</item>
+        <item>马克思主义理论</item>
+        <item>公共管理类</item>
+        <item>中国语言文学类</item>
+        <item>新闻传播学类</item>
+        <item>音乐与舞蹈学类</item>
+        <item>美术学类</item>
+        <item>设计学类</item>
+        <item>外国语言学类</item>
+        <item>历史学类</item>
+        <item>工商管理类</item>
+        <item>图书情报与档案管理类</item>
+        <item>数学类</item>
+        <item>统计学类</item>
+        <item>计算机类</item>
+        <item>物理学类</item>
+        <item>化学类</item>
+        <item>化学与制药类</item>
+        <item>电子信息类</item>
+        <item>电子商务类</item>
+        <item>生物科学类</item>
+        <item>生物工程类</item>
+        <item>机械类</item>
+        <item>材料类</item>
+        <item>轻工类</item>
+        <item>仪器类</item>
+        <item>生物医学工程类</item>
+        <item>物流管理与工程类</item>
+        <item>能源动力类</item>
+        <item>交通运输类</item>
+        <item>电气类</item>
+        <item>力学类</item>
+        <item>土木类</item>
+        <item>水利类</item>
+        <item>建筑学</item>
+        <item>环境科学与工程类</item>
+        <item>公共卫生与预防医学类</item>
+        <item>临床医学类</item>
+        <item>口腔医学类</item>
+        <item>护理学类</item>
+        <item>药学类</item>
+        <item>管理科学与工程类</item>
+        <item>工商管理类</item>
+        <item>工业工程类</item>
+        <item>旅游管理类</item>
+        <item>体育学类</item>
+        <item>教育学类</item>
+        <item>海洋科学类</item>
+        <item>海洋工程类</item>
+        <item>地理物理类</item>
+    </array>
+
+</resources>
