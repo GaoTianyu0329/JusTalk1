@@ -1,15 +1,26 @@
 package com.example.gaotianyu.app.Activity.Fragment;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,28 +32,47 @@ import android.widget.Toast;
 
 import com.example.gaotianyu.app.Activity.Activity.LoginActivity;
 import com.example.gaotianyu.app.Activity.Activity.MessageActivity;
+import com.example.gaotianyu.app.Activity.Tools.PhotoTool;
 import com.example.gaotianyu.app.Activity.User.UserManage;
 import com.example.gaotianyu.app.R;
+import com.vondear.rxtools.RxImageTool;
+import com.vondear.rxtools.RxIntentTool;
+import com.vondear.rxtools.RxPhotoTool;
+import com.vondear.rxtools.RxTool;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by GaoTianyu on 2017/12/1.
  */
 
 public class GerenFragment extends Fragment {
+
     protected static final int CHOOSE_PICTURE = 0;
     private Bitmap mBitmap;
     ImageView imageView;
     protected static final int TAKE_PICTURE = 1;
 
-    protected static Uri tempUri;
+    public static final int TAKE_PHOTO = 5001;
 
-    private static final int CROP_SMALL_PICTURE = 2;
+    public static final int CHOOSE_PHOTO = 5002;
+    public static final int CROP_IMAGE = 5003;
+
+
+    protected static Uri imageUri;
+
+
     private AlertDialog.Builder builder;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_geren,contianer,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_geren, contianer, false);
         Button button = (Button) view.findViewById(R.id.button_exit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,9 +81,9 @@ public class GerenFragment extends Fragment {
             }
         });
         Button button_message = (Button) view.findViewById(R.id.button_message);
-        button_message.setOnClickListener(new  View.OnClickListener(){
+        button_message.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MessageActivity.class);
                 startActivity(intent);
 
@@ -68,12 +98,14 @@ public class GerenFragment extends Fragment {
         });
         return view;
     }
-    private void showNormalDialog(){
+
+    private void showNormalDialog() {
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
          * setXXX方法返回Dialog对象，因此可以链式设置属性
          */
+
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(getActivity());
         normalDialog.setIcon(R.drawable.ic_notifications_black_24dp);
@@ -83,11 +115,11 @@ public class GerenFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sp = getActivity().getSharedPreferences("userinfo",0);
+                        SharedPreferences sp = getActivity().getSharedPreferences("userinfo", 0);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.clear();
                         editor.commit();
-                        Intent intent = new Intent(getActivity(),LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
                         getActivity().finish();
                     }
@@ -96,55 +128,53 @@ public class GerenFragment extends Fragment {
         // 显示
         normalDialog.show();
     }
+
     protected void showChoosePicDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("添加图片");
 
-        String[] items = { "选择本地照片", "拍照" };
+
+        String[] items = {"选择本地照片", "拍照"};
 
         builder.setNegativeButton("取消", null);
 
         builder.setItems(items, new DialogInterface.OnClickListener() {
-
-
-
             @Override
-
             public void onClick(DialogInterface dialog, int which) {
 
                 switch (which) {
 
                     case CHOOSE_PICTURE: // 选择本地照片
-
-                        Intent openAlbumIntent = new Intent(
-
-                                Intent.ACTION_GET_CONTENT);
-
-                        openAlbumIntent.setType("image/*");
-
-                        //用startActivityForResult方法，待会儿重写onActivityResult()方法，拿到图片做裁剪操作
-
-                        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{ Manifest.permission. WRITE_EXTERNAL_STORAGE }, 1);
+                        } else {
+                            openAlbum();
+                        }
 
                         break;
 
                     case TAKE_PICTURE: // 拍照
-
-                        Intent openCameraIntent = new Intent(
-
-                                MediaStore.ACTION_IMAGE_CAPTURE);
-
-                        tempUri = Uri.fromFile(new File(Environment
-
-                                .getExternalStorageDirectory(), "temp_image.jpg"));
-
-                        // 将拍照所得的相片保存到SD卡根目录
-
-                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-
-                        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                        // 创建File对象，用于存储拍照后的图片
+                        File outputImage = new File(getActivity().getExternalCacheDir(), "output_image.jpg");
+                        try {
+                            if (outputImage.exists()) {
+                                outputImage.delete();
+                            }
+                            outputImage.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (Build.VERSION.SDK_INT < 24) {
+                            imageUri = Uri.fromFile(outputImage);
+                        } else {
+                            imageUri = FileProvider.getUriForFile(getActivity(), "com.example.gaotianyu.app.fileprovider", outputImage);
+                        }
+                        // 启动相机程序
+                        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        startActivityForResult(intent, TAKE_PHOTO);
 
                         break;
 
@@ -155,73 +185,126 @@ public class GerenFragment extends Fragment {
         });
 
         builder.show();
-
     }
-    /**
-
-     * 裁剪图片方法实现
-
-     */
-
-    protected void cutImage(Uri uri) {
-
-        if (uri == null) {
-
-            Log.i("alanjet", "The uri is not exist.");
-
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, CHOOSE_PHOTO); // 打开相册
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();
+                } else {
+                    Toast.makeText(getActivity(), "You denied the permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
         }
-
-        tempUri = uri;
-
-        Intent intent = new Intent("com.android.camera.action.CROP");
-
-        //com.android.camera.action.CROP这个action是用来裁剪图片用的
-
-        intent.setDataAndType(uri, "image/*");
-
-        // 设置裁剪
-
-        intent.putExtra("crop", "true");
-
-        // aspectX aspectY 是宽高的比例
-
-        intent.putExtra("aspectX", 1);
-
-        intent.putExtra("aspectY", 1);
-
-        // outputX outputY 是裁剪图片宽高
-
-        intent.putExtra("outputX", 150);
-
-        intent.putExtra("outputY", 150);
-
-        intent.putExtra("return-data", true);
-
-        startActivityForResult(intent, CROP_SMALL_PICTURE);
-
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        // 将拍摄的照片显示出来
+                        RxPhotoTool.cropImage(getActivity(),imageUri);
 
-    /**
+                        //imageUri = data.getData();
+                        //RxPhotoTool.cropImage(getActivity(),imageUri);
 
-     * 保存裁剪之后的图片数据
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case CHOOSE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    // 判断手机系统版本号
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        // 4.4及以上系统使用这个方法处理图片
+                        handleImageOnKitKat(data);
+                    } else {
+                        // 4.4以下系统使用这个方法处理图片
+                        handleImageBeforeKitKat(data);
+                    }
+                }
+                break;
+            case CROP_IMAGE:
+                imageUri = data.getData();
+                displayImage(RxPhotoTool.getRealFilePath(getActivity(),imageUri));
 
-     */
-
-    protected void setImageToView(Intent data) {
-
-        Bundle extras = data.getExtras();
-
-        if (extras != null) {
-
-            mBitmap = extras.getParcelable("data");
-
-            //这里图片是方形的，可以用一个工具类处理成圆形（很多头像都是圆形，这种工具类网上很多不再详述）
-
-            imageView.setImageBitmap(mBitmap);//显示图片
-
-            //在这个地方可以写上上传该图片到服务器的代码，后期将单独写一篇这方面的博客，敬请期待...
-
+                break;
+            default:
+                break;
         }
-
     }
+
+    @TargetApi(19)
+    private void handleImageOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        Log.d("TAG", "handleImageOnKitKat: uri is " + uri);
+        if (DocumentsContract.isDocumentUri(getActivity(), uri)) {
+            // 如果是document类型的Uri，则通过document id处理
+            String docId = DocumentsContract.getDocumentId(uri);
+            if("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1]; // 解析出数字格式的id
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                imagePath = getImagePath(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            // 如果是content类型的Uri，则使用普通方式处理
+            imagePath = getImagePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            // 如果是file类型的Uri，直接获取图片路径即可
+            imagePath = uri.getPath();
+        }
+        uri = Uri.parse(imagePath);
+        RxPhotoTool.cropImage(getActivity(),uri);// 根据图片路径显示图片
+    }
+
+    private void handleImageBeforeKitKat(Intent data) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri, null);
+        uri = Uri.parse(imagePath);
+        RxPhotoTool.cropImage(getActivity(),uri);
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        // 通过Uri和selection来获取真实的图片路径
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    private void displayImage(String imagePath) {
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            imageView.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(getActivity(), "failed to get image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+
+
+
 }
+
+

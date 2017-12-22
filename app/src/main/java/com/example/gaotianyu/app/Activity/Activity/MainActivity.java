@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gaotianyu.app.Activity.Fragment.GerenFragment;
+
 import com.example.gaotianyu.app.Activity.Fragment.LifeFragment;
 import com.example.gaotianyu.app.Activity.Fragment.SaishiFragment;
 import com.example.gaotianyu.app.Activity.Fragment.StudyFragment;
@@ -35,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent1);
             }
         });
-        ImageButton button_saishi = (ImageButton) findViewById(R.id.button_saishi);
+        ImageView button_saishi = (ImageView) findViewById(R.id.button_saishi);
         button_saishi.setOnClickListener(this);
-        ImageButton button_life = (ImageButton) findViewById(R.id.button_life);
+        ImageView button_life = (ImageView) findViewById(R.id.button_life);
         button_life.setOnClickListener(this);
-        ImageButton button_study = (ImageButton) findViewById(R.id.button_study);
+        ImageView button_study = (ImageView) findViewById(R.id.button_study);
         button_study.setOnClickListener(this);
-        ImageButton button_geren = (ImageButton) findViewById(R.id.button_geren);
+        ImageView button_geren = (ImageView) findViewById(R.id.button_geren);
         button_geren.setOnClickListener(this);
         button_geren.callOnClick();
     }
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_geren:
                 title.setText("个人中心");
                 replaceFragment(new GerenFragment());
+
                 break;
             default:
                 break;

@@ -10,12 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="com.mob.MobApplication">
+        <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:grantUriPermissions="true"
+        android:exported="false"
+        android:authorities="com.example.gaotianyu.app.fileprovider">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
 
+        </provider>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
 
 
         <activity
@@ -39,6 +53,8 @@
         <activity android:name=".Activity.Activity.SigninActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"
             ></activity>
+
+
         <!-- 通过AndroidManifest配置AppKey和AppSecret，如果你选择通过代码配置，则不需要配置以下meta-data -->
         <meta-data android:name="Mob-AppKey" android:value="2309507a23889"/>
         <meta-data android:name="Mob-AppSecret" android:value="34656ba1883e630a8834fb48404f8225"/>

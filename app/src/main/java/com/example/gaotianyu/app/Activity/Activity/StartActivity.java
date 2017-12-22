@@ -21,31 +21,18 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class StartActivity extends AppCompatActivity {
-    private static final int GO_MAIN = 0;
-    private static final int GO_LOGIN = 1;
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg){
-            switch (msg.what){
-                case GO_MAIN:
-                    Intent intent1 = new Intent(StartActivity.this,MainActivity.class);
-                    startActivity(intent1);
-                    finish();
-                    break;
-                case GO_LOGIN:
-                    Intent intent2 = new Intent(StartActivity.this,LoginActivity.class);
-                    startActivity(intent2);
-                    finish();
-                    break;
-            }
-        }
-    };
+
+   private final long time = 2000;
+    Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
+        //Intent intent = new Intent(StartActivity.this, MainActivity.class);
+        //startActivity(intent);
+        //finish();
         if(UserManage.getInstance().hasUserInfo(this)){
             new Thread(new Runnable() {
                 @Override
@@ -80,7 +67,14 @@ public class StartActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.clear();
                                 editor.commit();
-                                mHandler.sendEmptyMessageAtTime(GO_LOGIN,2000);
+                                handler.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
+
+                                    public void run() {
+                                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }, time);
                             }
                             else if (responseData.equals("false")){
                                 Toast.makeText(StartActivity.this,"密码错误,请重新登录",Toast.LENGTH_SHORT).show();
@@ -88,12 +82,26 @@ public class StartActivity extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.clear();
                                 editor.commit();
-                                mHandler.sendEmptyMessageAtTime(GO_LOGIN,2000);
+                                handler.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
+
+                                    public void run() {
+                                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }, time);
                             }
                             if (responseData.equals("true")){
                                 Toast.makeText(StartActivity.this,"欢迎回来",Toast.LENGTH_SHORT).show();
                                 UserManage.getInstance().saveUserinfo(StartActivity.this,user_name,pwd);
-                                mHandler.sendEmptyMessageDelayed(GO_MAIN,2000);
+                                handler.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
+
+                                    public void run() {
+                                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }, time);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -111,7 +119,14 @@ public class StartActivity extends AppCompatActivity {
 
         }else {
 
-            mHandler.sendEmptyMessageAtTime(GO_LOGIN,2000);
+            handler.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
+
+                public void run() {
+                    Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, time);
         }
     }
 }
