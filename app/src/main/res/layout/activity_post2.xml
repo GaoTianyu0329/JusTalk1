@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+       android:text="发帖"
+        android:background="@drawable/top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请输入标题"/>
+    <EditText
+        android:id="@+id/post_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_bg"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请输入内容"/>
+    <EditText
+        android:gravity="start"
+        android:id="@+id/post_main"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/edit_bg"/>
+    <Spinner
+        android:id="@+id/atPost_label_2"
+        android:layout_marginLeft="20dp"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:entries="@array/label2">
+
+    </Spinner>
+    <Button
+        android:id="@+id/button_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发帖"
+        android:layout_gravity="center"/>
+</LinearLayout>

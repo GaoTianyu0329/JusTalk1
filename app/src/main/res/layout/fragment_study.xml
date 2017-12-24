@@ -21,6 +21,7 @@
             android:entries="@array/label_4">
         </Spinner>
         <Button
+            android:id="@+id/button_post"
             android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:layout_marginLeft="5dp"

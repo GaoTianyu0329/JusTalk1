@@ -17,12 +17,15 @@ import java.util.List;
 
 public class PostAdapter_1 extends RecyclerView.Adapter<PostAdapter_1.ViewHolder> {
     private List<PostList_1> postList;
+
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView label;
         TextView time;
         TextView title;
+        View listView;
         public ViewHolder(View view){
             super(view);
+            listView =view;
             label=(TextView) view.findViewById(R.id.postlist_label);
             time = (TextView)view.findViewById(R.id.postlist_time);
             title=(TextView)view.findViewById(R.id.postlist_title);

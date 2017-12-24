@@ -23,7 +23,10 @@ import okhttp3.Response;
 import static com.example.gaotianyu.app.R.id.button_login;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "LoginActivity";
     private EditText editText_user;
+
+
     private EditText editText_pwd;
     private TextView textView_signup;
     private TextView textView_forget;
@@ -63,7 +66,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                     //获得返回数据
                                     Response response = client.newCall(request).execute();
+
                                     String responseData = response.body().string();
+                                    Log.i(TAG, responseData );
+                                    int id = 0;
 
                                     if (responseData.equals("nosuchid")){
                                         Toast.makeText(LoginActivity.this,"该用户名不存在",Toast.LENGTH_SHORT).show();
@@ -71,11 +77,14 @@ public class LoginActivity extends AppCompatActivity {
                                     else if (responseData.equals("false")){
                                         Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
                                     }
-                                    if (responseData.equals("true")){
+                                    else {
+                                        int length = responseData.length();
+                                        id = Integer.parseInt(responseData.substring(4,length));
+                                        Log.e(TAG, id+"" );
                                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-                                        UserManage.getInstance().saveUserinfo(LoginActivity.this,user_name,pwd);
-
+                                        UserManage.getInstance().saveUserinfo(LoginActivity.this,user_name,pwd,id);
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        intent.putExtra("username",user_name);
                                         startActivity(intent);
                                         finish();
                                     }

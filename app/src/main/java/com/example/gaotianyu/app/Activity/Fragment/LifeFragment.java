@@ -1,5 +1,6 @@
 package com.example.gaotianyu.app.Activity.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.gaotianyu.app.Activity.Activity.PostActivity;
 import com.example.gaotianyu.app.Activity.Adapter.PostAdapter_1;
 import com.example.gaotianyu.app.Activity.Adapter.PostAdapter_2;
 import com.example.gaotianyu.app.Activity.PostList.PostList_1;
@@ -24,6 +27,7 @@ import java.util.List;
 public class LifeFragment extends Fragment {
     private List<PostList_2> postList = new ArrayList<>();
     PostAdapter_2 adapter_lianxiren;
+    private Button button;
 
 
 
@@ -36,6 +40,16 @@ public class LifeFragment extends Fragment {
         recyclerView_saishi.setLayoutManager(layoutManager);
         adapter_lianxiren = new PostAdapter_2(postList);
         recyclerView_saishi.setAdapter(adapter_lianxiren);
+        button = (Button)view.findViewById(R.id.button_post);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getActivity(), PostActivity.class);
+                intent.putExtra("kind",2);
+                startActivity(intent);
+            }
+
+        });
         input();
         return view;
     }

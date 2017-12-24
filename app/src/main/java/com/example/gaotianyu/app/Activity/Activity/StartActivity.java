@@ -30,15 +30,15 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        //Intent intent = new Intent(StartActivity.this, MainActivity.class);
-        //startActivity(intent);
-        //finish();
+        Intent intent = new Intent(StartActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
         if(UserManage.getInstance().hasUserInfo(this)){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        UserInfo userInfo = UserManage.getInstance().getUserInfo(StartActivity.this);
+                        final UserInfo userInfo = UserManage.getInstance().getUserInfo(StartActivity.this);
 
                         String user_name = userInfo.getUserName();
                         String pwd = userInfo.getPassword();
@@ -60,6 +60,7 @@ public class StartActivity extends AppCompatActivity {
                             //获得返回数据
                             Response response = client.newCall(request).execute();
                             String responseData = response.body().string();
+
                             Log.v("aaa",responseData);
                             if (responseData.equals("nosuchid")){
                                 Toast.makeText(StartActivity.this,"该用户名不存在",Toast.LENGTH_SHORT).show();
@@ -91,13 +92,15 @@ public class StartActivity extends AppCompatActivity {
                                     }
                                 }, time);
                             }
-                            if (responseData.equals("true")){
+                            else {
+
                                 Toast.makeText(StartActivity.this,"欢迎回来",Toast.LENGTH_SHORT).show();
-                                UserManage.getInstance().saveUserinfo(StartActivity.this,user_name,pwd);
+                                UserManage.getInstance().saveUserinfo(StartActivity.this,user_name,pwd,0);
                                 handler.postDelayed(new Runnable() {  //使用handler的postDelayed实现延时跳转
 
                                     public void run() {
                                         Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                                        intent.putExtra("username",userInfo.getUserName());
                                         startActivity(intent);
                                         finish();
                                     }

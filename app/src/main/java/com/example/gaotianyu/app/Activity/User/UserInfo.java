@@ -5,8 +5,18 @@ package com.example.gaotianyu.app.Activity.User;
  */
 
 public class UserInfo {
+    private int id;
     private String userName;
     private String password;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getPassword(){
         return password;
     }

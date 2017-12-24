@@ -16,6 +16,7 @@
 
         </Spinner>
         <Button
+            android:id="@+id/button_post"
             android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:layout_marginLeft="50dp"
