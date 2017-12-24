@@ -30,9 +30,9 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        Intent intent = new Intent(StartActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        //Intent intent = new Intent(StartActivity.this, MainActivity.class);
+        //startActivity(intent);
+        //finish();
         if(UserManage.getInstance().hasUserInfo(this)){
             new Thread(new Runnable() {
                 @Override
