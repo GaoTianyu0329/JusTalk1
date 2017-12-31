@@ -1,101 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:background="@drawable/top"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/Base.AlertDialog.AppCompat.Light"
+            ></android.support.v7.widget.Toolbar>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/fragment_layout">
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/buttom"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/button_saishi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:src="@mipmap/saishi" />
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/button_life"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:src="@mipmap/life" />
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/button_study"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:src="@mipmap/study" />
+            
+
+
+        </LinearLayout>
+    </LinearLayout>
+<include
+    layout="@layout/fragment_geren"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:background="@drawable/top"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            android:textSize="30dp"
-            android:textColor="#FFFFFF"
-            android:id="@+id/text_title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="6"
-            android:gravity="center"
-
-            />
-        <ImageView
-            android:src="@mipmap/message"
-            android:id="@+id/button_message"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-
-            android:text="通知"
-            />
-    </LinearLayout>
+    android:id="@+id/nav_view"
+    android:layout_gravity="start"/>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:id="@+id/fragment_layout">
 
-    </LinearLayout>
+    
 
-    <LinearLayout
-
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@drawable/buttom"
-        android:orientation="horizontal">
+</android.support.v4.widget.DrawerLayout>
 
 
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/button_saishi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:src="@mipmap/saishi" />
-
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/button_life"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:src="@mipmap/life" />
-
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/button_study"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:src="@mipmap/study" />
-
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/button_geren"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:src="@mipmap/geren" />
-
-
-    </LinearLayout>
-
-
-
-</LinearLayout>

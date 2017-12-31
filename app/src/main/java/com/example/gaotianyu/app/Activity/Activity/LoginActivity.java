@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     String responseData = response.body().string();
                                     Log.i(TAG, responseData );
-                                    int id = 0;
+                                    String id = "0";
 
                                     if (responseData.equals("nosuchid")){
                                         Toast.makeText(LoginActivity.this,"该用户名不存在",Toast.LENGTH_SHORT).show();
@@ -79,7 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                     else {
                                         int length = responseData.length();
-                                        id = Integer.parseInt(responseData.substring(4,length));
+                                       // id = Integer.parseInt(responseData.substring(4,length));
+                                        id = responseData.substring(4,length);
                                         Log.e(TAG, id+"" );
                                         Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                                         UserManage.getInstance().saveUserinfo(LoginActivity.this,user_name,pwd,id);

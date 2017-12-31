@@ -19,12 +19,12 @@ public class UserManage {
         }
         return instance;
     }
-    public void saveUserinfo(Context context,String username,String password,int id){
+    public void saveUserinfo(Context context,String username,String password,String id){
         SharedPreferences sp = context.getSharedPreferences("userinfo",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("USER_NAME",username);
         editor.putString("PASSWORD",password);
-        editor.putInt("id",id);
+        editor.putString("id",id);
         editor.apply();
     }
     public UserInfo getUserInfo (Context context){
@@ -32,14 +32,14 @@ public class UserManage {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(sp.getString("USER_NAME",""));
         userInfo.setPassword(sp.getString("PASSWORD",""));
-        userInfo.setId(sp.getInt("id",1));
+        userInfo.setId(sp.getString("id",""));
         return userInfo;
 
     }
     public boolean hasUserInfo(Context context){
         UserInfo userInfo = getUserInfo(context);
         if(userInfo!=null){
-            if((!TextUtils.isEmpty(userInfo.getUserName()))&&(!TextUtils.isEmpty(userInfo.getPassword()))){
+            if((!TextUtils.isEmpty(userInfo.getUserName()))&&(!TextUtils.isEmpty(userInfo.getPassword()))&&(!TextUtils.isEmpty(userInfo.getId()))){
                 return true;
             }else {
                 return false;

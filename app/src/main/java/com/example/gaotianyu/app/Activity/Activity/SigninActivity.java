@@ -62,7 +62,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         sendmessage.setOnClickListener(this);
         eh = new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
-
+                Looper.prepare();
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
@@ -71,7 +71,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                             public void run() {
                                 try {
 
-                                    Looper.prepare();
+
                                     OkHttpClient client = new OkHttpClient();
                                     //上传数据
                                     RequestBody requestBody = new FormBody.Builder()
@@ -111,7 +111,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                Looper.loop();
+                                //Looper.loop();
                             }
                         }).start();
                         //提交验证码成功
@@ -124,6 +124,7 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     ((Throwable) data).printStackTrace();
                 }
+                Looper.loop();
             }
         };
 
@@ -140,9 +141,9 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.sign_send:
                 if (ButtonSlop.check(R.id.button_signup)) {
-                    Toast.makeText(SigninActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                Toast.makeText(SigninActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
+                return;
+            }
                 phone = etPhoneNumber.getText().toString();
                 if(phone.equals("")||phone.equals(null)){
                     Toast.makeText(SigninActivity.this,"电话号不能为空",Toast.LENGTH_SHORT).show();

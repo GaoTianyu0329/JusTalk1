@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gaotianyu.app.Activity.Tools.ButtonSlop;
 import com.example.gaotianyu.app.Activity.User.UserInfo;
 import com.example.gaotianyu.app.Activity.User.UserManage;
 import com.example.gaotianyu.app.R;
@@ -29,41 +30,48 @@ private EditText postMian;
 private Button button_post;
 private Spinner spinner1;
 private Spinner spinner2;
-private int id ;
-private int kind;
+
+private String kind;
 private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
          Intent intent = getIntent();
-         kind = intent.getIntExtra("kind",0);
+         kind = intent.getStringExtra("kind");
         Log.e("aaa", kind+"" );
+        url= "http://202.194.15.232:8088/App/addarticle";
         super.onCreate(savedInstanceState);
-        switch (kind){
+
+        switch (Integer.parseInt(kind)){
             case 1:
                 setContentView(R.layout.activity_post1);
                 spinner1 = (Spinner)findViewById(R.id.atPost_label_1);
-                url="";
+                //url="";
                 break;
             case 2:
                 setContentView(R.layout.activity_post2);
                 spinner1 = (Spinner)findViewById(R.id.atPost_label_2);
-                url="";
+                //url="";
                 break;
             case 3:
                 setContentView(R.layout.activity_post3);
                 spinner1 = (Spinner)findViewById(R.id.atPost_label_3);
                 spinner2 = (Spinner)findViewById(R.id.atPost_label_4);
-                url="";
+                //url="";
                 break;
         }
 
         final UserInfo userInfo = UserManage.getInstance().getUserInfo(PostActivity.this);
-        final String id = userInfo.getId()+"";
+        final String userid = userInfo.getId()+"";
 
         init();
         button_post.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                if (ButtonSlop.check(R.id.button_signup)) {
+                    //Toast.makeText(PostActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -71,10 +79,14 @@ private String url;
                             Looper.prepare();
                             Calendar calendar = Calendar.getInstance();
                             int year = calendar.get(Calendar.YEAR);
-                            int month = calendar.get(Calendar.MONTH);
+                            int month = calendar.get(Calendar.MONTH)+1;
                             int day = calendar.get(Calendar.DAY_OF_MONTH);
                             String label1 = spinner1.getSelectedItem().toString();
-                            String label2 = spinner2.getSelectedItem().toString();
+
+                            if (kind.equals(3)){
+                                label1 +="#"+spinner2.getSelectedItem().toString();
+                            }
+
                             String title = postTitle.getText().toString();
                             String main = postMian.getText().toString();
                             if (title.equals(null)||title.equals("")){
@@ -85,60 +97,49 @@ private String url;
                                 OkHttpClient client = new OkHttpClient();
                                 RequestBody requestBody;
                                 //上传数据
-                                if(kind ==3){
+                                Log.e("YYYYY", userid );
+                                Log.e("YYYYY", title );
+                                Log.e("YYYYY", main );
+                                Log.e("YYYYY", year+"");
+                                Log.e("YYYYY", month+"" );
+                                Log.e("YYYYY", day+"" );
+                                Log.e("YYYYY", kind );
+                                Log.e("YYYYY", label1 );
                                     requestBody = new FormBody.Builder()
-                                            .add("userid",id)
-                                            .add("title",title)
-                                            .add("main",main)
-                                            .add("label1",label1)
-                                            .add("label2",label2)
-                                            .add("time",year+"-"+month+"-"+day)
-                                            .build();
-                                    Request request = new Request.Builder()
-                                            .url("")//服务器网址
-                                            .post(requestBody)
-                                            .build();
-                                }else {
-                                    requestBody = new FormBody.Builder()
-                                        .add("userid",id)
+                                        .add("userid",userid)
                                         .add("title",title)
                                         .add("main",main)
                                         .add("label",label1)
+                                            .add("kind",kind)
                                         .add("time",year+"-"+month+"-"+day)
                                         .build();
                                     Request request = new Request.Builder()
-                                            .url("")//服务器网址
+                                            .url(url)//服务器网址
                                             .post(requestBody)
                                             .build();
 
-                                }
 
-                                Request request = new Request.Builder()
-                                        .url("")//服务器网址
-                                        .post(requestBody)
-                                        .build();
+
+
                                 try{
 
                                     //获得返回数据
                                     Response response = client.newCall(request).execute();
 
                                     String responseData = response.body().string();
+                                    Log.e("YYYYY", responseData );
 
 
-                                    if (responseData.equals("nosuchid")){
-                                        Toast.makeText(PostActivity.this,"",Toast.LENGTH_SHORT).show();
+                                    if (responseData.equals("fail")){
+                                        Toast.makeText(PostActivity.this,"发帖失败",Toast.LENGTH_SHORT).show();
                                     }
-                                    else if (responseData.equals("false")){
-                                        Toast.makeText(PostActivity.this,"",Toast.LENGTH_SHORT).show();
-                                    }
-                                    if (responseData.equals("true")){
-                                        Toast.makeText(PostActivity.this,"",Toast.LENGTH_SHORT).show();
-
-
+                                    else if (responseData.equals("success")){
+                                        Toast.makeText(PostActivity.this,"发帖成功",Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(PostActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -160,7 +161,7 @@ private String url;
     private void init(){
         postTitle = (EditText)findViewById(R.id.post_title);
         postMian = (EditText)findViewById(R.id.post_main);
-        button_post = (Button)findViewById(R.id.button_post);
+        button_post = (Button)findViewById(R.id.buttonpost);
 
     }
 }

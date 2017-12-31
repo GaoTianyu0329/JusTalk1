@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/button_geren"
+        android:icon="@mipmap/center"
+        android:title="个人资料"/>
+    <item
+        android:id="@+id/shoucang"
+        android:icon="@mipmap/shoucang"
+        android:title="我的收藏"/>
+    <item
+        android:id="@+id/inform"
+        android:icon="@mipmap/message"
+        android:title="通知"/>
+    <item
+        android:id="@+id/exit"
+        android:title="退出"/>
+</group>
+</menu>

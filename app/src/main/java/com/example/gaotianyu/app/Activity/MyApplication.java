@@ -2,6 +2,7 @@ package com.example.gaotianyu.app.Activity;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.vondear.rxtools.RxTool;
 
@@ -13,6 +14,10 @@ public class MyApplication extends Application {
     private static Context context;
     @Override
     public void onCreate(){
+        super.onCreate();
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
         context = getApplicationContext();
         RxTool.init(context);
 

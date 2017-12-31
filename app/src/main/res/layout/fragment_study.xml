@@ -22,19 +22,25 @@
         </Spinner>
         <Button
             android:id="@+id/button_post"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFFFFF"
+            android:background="@drawable/button_post"
+
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="发帖"
+            android:layout_height="30dp"
+
             />
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="5dp"
+    <com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_study"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+    </com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout>
+
 
 </LinearLayout>

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.example.gaotianyu.app"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -40,8 +40,14 @@ dependencies {
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
     compile 'com.github.vondear:RxTools:v1.7.6.4'
-
+    compile 'com.android.support:design:25.3.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.github.yalantis:ucrop:2.2.1-native'
     compile 'com.github.yalantis:ucrop:2.2.1'
+    compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
+    compile 'com.jwenfeng.pulltorefresh:library:1.2.7'
+
     testCompile 'junit:junit:4.12'
     compile files('libs/MobCommons-2017.0607.1736.jar')
 }

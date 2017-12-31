@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.gaotianyu.app.Activity.PostList.PostList;
 import com.example.gaotianyu.app.Activity.PostList.PostList_1;
 import com.example.gaotianyu.app.R;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 
 public class PostAdapter_1 extends RecyclerView.Adapter<PostAdapter_1.ViewHolder> {
-    private List<PostList_1> postList;
+    private List<PostList> mpostList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView label;
@@ -31,26 +32,43 @@ public class PostAdapter_1 extends RecyclerView.Adapter<PostAdapter_1.ViewHolder
             title=(TextView)view.findViewById(R.id.postlist_title);
         }
     }
-    public PostAdapter_1(List<PostList_1> postList){
-        this.postList=postList;
+    public PostAdapter_1(List<PostList> postList){
+        this.mpostList=postList;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_postlist,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.listView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                PostList postList = mpostList.get(position);
+                //添加点击跳转
+
+            }
+        });
+
         return holder;
     }
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
-        PostList_1 postList_1 = postList.get(position);
-        holder.label.setText(postList_1.getLabel());
-        holder.time.setText(postList_1.getTime());
-        holder.title.setText(postList_1.getTitle());
+        PostList postList = mpostList.get(position);
+        holder.label.setText("["+postList.getLabel()+"]");
+        holder.time.setText(postList.getTime());
+        holder.title.setText(postList.getTitle());
     }
     @Override
     public int getItemCount(){
-        return postList.size();
+        return mpostList.size();
     }
 
+    public List<PostList> getMpostList() {
+        return mpostList;
+    }
+
+    public void setMpostList(List<PostList> mpostList) {
+        this.mpostList = mpostList;
+    }
 }

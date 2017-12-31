@@ -5,15 +5,15 @@ package com.example.gaotianyu.app.Activity.User;
  */
 
 public class UserInfo {
-    private int id;
+    private String id;
     private String userName;
     private String password;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
