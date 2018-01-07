@@ -65,7 +65,7 @@ public class SaishiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState){
         url_onOreate = "http://202.194.15.232:8088/App/showlist";
         View view = inflater.inflate(R.layout.fragment_saishi,contianer,false);
-        normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
+        //normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
         recyclerView_saishi = (RecyclerView) view.findViewById(R.id.recyclerView_saishi);
         input();
         button = (Button)view.findViewById(R.id.button_post);
@@ -78,7 +78,7 @@ public class SaishiFragment extends Fragment {
             }
 
         });
-        normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
+        /*normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 new Handler().postDelayed(new Runnable() {
@@ -101,6 +101,7 @@ public class SaishiFragment extends Fragment {
                 }, 2000);
             }
         });
+        */
 
         //postAdapter_2.notifyDataSetChanged();
 

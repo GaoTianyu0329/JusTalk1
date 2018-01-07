@@ -49,7 +49,7 @@ final String TAG = " LifeFragment ";
     public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState){
         url_onOreate = "http://202.194.15.232:8088/App/showlist";
         View view = inflater.inflate(R.layout.fragment_life,contianer,false);
-        normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
+        //normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
         recyclerView_life = (RecyclerView) view.findViewById(R.id.recyclerView_life);
         input();
         button = (Button)view.findViewById(R.id.button_post);
@@ -62,7 +62,7 @@ final String TAG = " LifeFragment ";
             }
 
         });
-        normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
+        /*normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 new Handler().postDelayed(new Runnable() {
@@ -85,6 +85,7 @@ final String TAG = " LifeFragment ";
                 }, 2000);
             }
         });
+        */
 
         //postAdapter_2.notifyDataSetChanged();
 

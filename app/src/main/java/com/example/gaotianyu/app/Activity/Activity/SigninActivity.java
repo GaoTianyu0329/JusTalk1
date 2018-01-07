@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gaotianyu.app.Activity.Tools.ButtonSlop;
@@ -44,10 +46,12 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     private String pwd2;
     private String phone;
     private String nickname;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MobSDK.init(this, "2309507a23889", "34656ba1883e630a8834fb48404f8225");
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         etVerificationCode = (EditText) findViewById(R.id.sign_message);
@@ -60,6 +64,8 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
         button_signup.setOnClickListener(this);
         sendmessage = (Button) findViewById(R.id.sign_send);
         sendmessage.setOnClickListener(this);
+        back = (ImageView)findViewById(R.id.back);
+        back.setOnClickListener(this);
         eh = new EventHandler() {
             public void afterEvent(int event, int result, Object data) {
                 Looper.prepare();
@@ -178,6 +184,9 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
                         SMSSDK.submitVerificationCode("86",phone,number);
                     }
                 }
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     };

@@ -70,12 +70,126 @@
 
         </LinearLayout>
     </LinearLayout>
-<include
-    layout="@layout/fragment_geren"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/nav_view"
-    android:layout_gravity="start"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:background="@drawable/drawer">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView_touxiang"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:src="@mipmap/ic_launcher_round" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:id="@+id/nickname"/>
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFF"/>
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <ImageView
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/center"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:text="个人资料"
+                android:gravity="center"
+                android:textSize="18dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFF"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <ImageView
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/shoucang"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:text="我的收藏"
+                android:gravity="center"
+                android:textSize="18dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFF"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <ImageView
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/inform"/>
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:text="通知"
+                android:gravity="center"
+                android:textSize="18dp"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFF"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_exit"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="退出"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFF"/>
+
+
+    </LinearLayout>
 
 
 
