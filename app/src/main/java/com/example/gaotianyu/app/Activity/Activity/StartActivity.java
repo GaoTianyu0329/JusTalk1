@@ -15,6 +15,7 @@ import com.example.gaotianyu.app.Activity.User.UserInfo;
 import com.example.gaotianyu.app.Activity.User.UserManage;
 import com.example.gaotianyu.app.R;
 
+import cn.bmob.v3.Bmob;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,6 +30,8 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Bmob.initialize(this, "7f9629f692893ec44d34032ddc4ad9bb");
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);

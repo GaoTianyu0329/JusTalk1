@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 
+import com.mob.MobApplication;
 import com.vondear.rxtools.RxTool;
 
 /**

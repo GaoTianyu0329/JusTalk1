@@ -1,29 +1,32 @@
 package com.example.gaotianyu.app.Activity.PostList;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by GaoTianyu on 2017/12/28.
  */
 
-public class PostList {
-    private String id;
+public class PostList extends BmobObject {
+    private String kind;
+
     private String uesrid;
 
     private String title;
     private String content;
     private String time;
     private String label;
-
-public PostList(String id,String userid,String title,String content,String time,String label){
-    this.id=id;
-    this.uesrid = userid;
-    this.title = title;
-    this.content = content;
-    this.time = time;
-    this.label = label;
+public PostList (){
 
 }
-    public String getId() {
-        return id;
+
+    public PostList(String userid,String kind,String title,String content,String time,String label){
+        this.uesrid = userid;
+        this.kind = kind;
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.label = label;
+
     }
 
 
@@ -53,9 +56,6 @@ public PostList(String id,String userid,String title,String content,String time,
         this.time = time;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
 
 
@@ -73,5 +73,13 @@ public PostList(String id,String userid,String title,String content,String time,
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 }

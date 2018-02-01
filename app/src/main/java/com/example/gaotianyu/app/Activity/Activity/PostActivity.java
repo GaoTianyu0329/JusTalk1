@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gaotianyu.app.Activity.PostList.PostList;
 import com.example.gaotianyu.app.Activity.Tools.ButtonSlop;
 import com.example.gaotianyu.app.Activity.User.UserInfo;
 import com.example.gaotianyu.app.Activity.User.UserManage;
@@ -19,6 +20,9 @@ import com.example.gaotianyu.app.R;
 
 import java.util.Calendar;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,6 +40,7 @@ private String kind;
 private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
          Intent intent = getIntent();
@@ -96,6 +101,29 @@ private String url;
                             }else if (main.equals(null)||main.equals("")){
                                 Toast.makeText(PostActivity.this,"内容不能为空",Toast.LENGTH_SHORT).show();
                             }else {
+                                PostList postList = new PostList();
+                                postList.setUerid(userid);
+                                postList.setKind(kind);
+                                postList.setTitle(title);
+                                postList.setContent(main);
+                                postList.setTime(year+"-"+month+"-"+day);
+                                postList.setLabel(label1);
+                                postList.save(new SaveListener<String>() {
+
+                                    @Override
+                                    public void done(String objectId, BmobException e) {
+                                        if(e==null){
+                                            Toast.makeText(PostActivity.this,"发帖成功",Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            Toast.makeText(PostActivity.this,"发帖失败",Toast.LENGTH_SHORT).show();
+
+                                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                                        }
+                                    }
+                                });
+
+                                /*
                                 OkHttpClient client = new OkHttpClient();
                                 RequestBody requestBody;
                                 //上传数据
@@ -145,6 +173,7 @@ private String url;
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+                                */
                             }
 
                         }catch (Exception e){

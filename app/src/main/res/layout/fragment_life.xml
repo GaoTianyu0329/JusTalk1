@@ -26,9 +26,17 @@
 
             />
     </LinearLayout>
-    <com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        ptr:ptr_duration_to_close_either="1000"
+        ptr:ptr_keep_header_when_refresh="true"
+        ptr:ptr_pull_to_fresh="false"
+        ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        ptr:ptr_resistance="1.7">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_life"
             android:layout_marginTop="5dp"
@@ -37,7 +45,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-    </com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 
 

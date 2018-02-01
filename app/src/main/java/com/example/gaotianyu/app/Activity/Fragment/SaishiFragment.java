@@ -33,10 +33,17 @@ import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -59,6 +66,13 @@ public class SaishiFragment extends Fragment {
     private Thread refreshThread, loadThread;
     private String url_onOreate;
     private NormalPullToRefreshLayout normalPullToRefreshLayout;
+    private static final int STATE_REFRESH = 0;// 下拉刷新
+    private static final int STATE_MORE = 1;// 加载更多
+
+    private int limit = 10; // 每页的数据是10条
+    private int curPage = 0; // 当前页的编号，从0开始
+    String lastTime = null;
+
 
 
     @Override
@@ -67,7 +81,7 @@ public class SaishiFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_saishi,contianer,false);
         //normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
         recyclerView_saishi = (RecyclerView) view.findViewById(R.id.recyclerView_saishi);
-        input();
+        //input();
         button = (Button)view.findViewById(R.id.button_post);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -78,12 +92,13 @@ public class SaishiFragment extends Fragment {
             }
 
         });
-        /*normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
+        normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         // 结束刷新
                         normalPullToRefreshLayout.finishRefresh();
                     }
@@ -95,13 +110,14 @@ public class SaishiFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         // 结束加载更多
                         normalPullToRefreshLayout.finishLoadMore();
                     }
                 }, 2000);
             }
         });
-        */
+
 
         //postAdapter_2.notifyDataSetChanged();
 
@@ -109,7 +125,47 @@ public class SaishiFragment extends Fragment {
 
         return view;
     }
-    private void input(){
+
+            /*
+            @Override
+            public void onSuccess(List<PostList> list) {
+                if (list.size() > 0) {
+
+                    if (actionType == STATE_REFRESH) {
+                        // 当是下拉刷新操作时，将当前页的编号重置为0，并把bankCards清空，重新添加
+                        curPage = 0;
+                        postList.clear();
+                        // 获取最后时间
+                        lastTime = list.get(list.size() - 1).getCreatedAt();
+                    }
+
+                    // 将本次查询的数据添加到bankCards中
+                    for (PostList td : list) {
+                        postList.add(td);
+                    }
+
+                    // 这里在每次加载完数据后，将当前页码+1，这样在上拉刷新的onPullUpToRefresh方法中就不需要操作curPage了
+                    curPage++;
+//					 showToast("第"+(page+1)+"页数据加载完成");
+                } else if (actionType == STATE_MORE) {
+                    showToast("没有更多数据了");
+                } else if (actionType == STATE_REFRESH) {
+                    showToast("没有数据");
+                }
+                //mPullToRefreshView.onRefreshComplete();
+            }
+            */
+/*
+            @Override
+            public void onError(int arg0, String arg1) {
+                showToast("查询失败:" + arg1);
+                //mPullToRefreshView.onRefreshComplete();
+            }
+
+        });
+    }
+
+    //private void input(){
         /*
         PostList_2 postList1 = new PostList_2("a","2017/12/12","c","b","c","d");
         postList.add(postList1);
@@ -118,6 +174,7 @@ public class SaishiFragment extends Fragment {
         PostList_2 postList13 = new PostList_2("a","2017/12/12","c","b","c","d");
         postList.add(postList13);
         */
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -159,7 +216,7 @@ public class SaishiFragment extends Fragment {
         postAdapter_2.notifyDataSetChanged();
         */
 
-    }
+   // }
     private void parseJSONWithGSON(String jsonData){
         try {
             Gson gson = new Gson();
@@ -480,5 +537,7 @@ public class SaishiFragment extends Fragment {
         }
     }
 */
-
+private void showToast(String msg) {
+    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+}
 }

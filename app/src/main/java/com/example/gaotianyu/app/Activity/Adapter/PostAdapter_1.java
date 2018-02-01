@@ -56,7 +56,7 @@ public class PostAdapter_1 extends RecyclerView.Adapter<PostAdapter_1.ViewHolder
     public void onBindViewHolder(ViewHolder holder,int position){
         PostList postList = mpostList.get(position);
         holder.label.setText("["+postList.getLabel()+"]");
-        holder.time.setText(postList.getTime());
+        holder.time.setText(postList.getCreatedAt());
         holder.title.setText(postList.getTitle());
     }
     @Override
