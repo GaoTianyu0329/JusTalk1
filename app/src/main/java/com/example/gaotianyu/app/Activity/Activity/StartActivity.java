@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.gaotianyu.app.Activity.User.UserInfo;
@@ -33,7 +32,6 @@ public class StartActivity extends AppCompatActivity {
 
         Bmob.initialize(this, "7f9629f692893ec44d34032ddc4ad9bb");
         super.onCreate(savedInstanceState);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_start);
 
 

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,8 +39,11 @@ private String kind;
 private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+=======
+>>>>>>> parent of 06bc97a... 将界面改为全屏，短信验证码的问题应该已经解决了，刷新的控件改为庄大佬的那个
 
          Intent intent = getIntent();
          kind = intent.getStringExtra("kind");

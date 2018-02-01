@@ -23,9 +23,12 @@
             android:id="@+id/button_post"
              />
     </LinearLayout>
-    <com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout
+
+    <com.example.gaotianyu.app.Activity.UI.NormalPullToRefreshLayout
+        android:id="@+id/refreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_saishi"
             android:layout_width="match_parent"
@@ -33,9 +36,8 @@
             android:layout_marginTop="5dp">
 
         </android.support.v7.widget.RecyclerView>
-    </com.example.gaotianyu.app.Activity.RecyclerViewpack.PullRefreshLayout>
 
-
+    </com.example.gaotianyu.app.Activity.UI.NormalPullToRefreshLayout>
 
 
 
