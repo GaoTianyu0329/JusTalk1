@@ -17,12 +17,10 @@ import com.example.gaotianyu.app.Activity.Activity.PostActivity;
 import com.example.gaotianyu.app.Activity.Adapter.PostAdapter_2;
 import com.example.gaotianyu.app.Activity.PostList.PostList;
 import com.example.gaotianyu.app.Activity.PostList.PostList_2;
-import com.example.gaotianyu.app.Activity.UI.NormalPullToRefreshLayout;
 import com.example.gaotianyu.app.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
-import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,10 +50,11 @@ public class LifeFragment extends Fragment {
     PostAdapter_2 postAdapter_2;
     private Button button;
     private String url_onOreate;
-    //private NormalPullToRefreshLayout normalPullToRefreshLayout;
-    private PtrClassicFrameLayout ptrLayout;
+
+
     private RecyclerView recyclerView_life;
-final String TAG = " LifeFragment ";
+    final String TAG = " LifeFragment ";
+    private PtrClassicFrameLayout ptrLayout;
     private static final int STATE_REFRESH = 0;// 下拉刷新
     private static final int STATE_MORE = 1;// 加载更多
 
@@ -68,14 +67,12 @@ final String TAG = " LifeFragment ";
     public View onCreateView(LayoutInflater inflater, ViewGroup contianer, Bundle savedInstanceState){
         url_onOreate = "http://202.194.15.232:8088/App/showlist";
         View view = inflater.inflate(R.layout.fragment_life,contianer,false);
-<<<<<<< HEAD
         //normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
         ptrLayout = (PtrClassicFrameLayout)  view.findViewById(R.id.refreshlayout);
-=======
-        normalPullToRefreshLayout = (NormalPullToRefreshLayout) view.findViewById(R.id.refreshlayout);
->>>>>>> parent of 06bc97a... 将界面改为全屏，短信验证码的问题应该已经解决了，刷新的控件改为庄大佬的那个
         recyclerView_life = (RecyclerView) view.findViewById(R.id.recyclerView_life);
-        input();
+        firstPage();
+        initAdapter();
+        //input();
         button = (Button)view.findViewById(R.id.button_post);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,29 +83,7 @@ final String TAG = " LifeFragment ";
             }
 
         });
-        normalPullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
-            @Override
-            public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 结束刷新
-                       normalPullToRefreshLayout.finishRefresh();
-                    }
-                }, 2000);
-            }
 
-            @Override
-            public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 结束加载更多
-                        normalPullToRefreshLayout.finishLoadMore();
-                    }
-                }, 2000);
-            }
-        });
 
         //postAdapter_2.notifyDataSetChanged();
 
@@ -120,6 +95,9 @@ final String TAG = " LifeFragment ";
     @Override
     public void onResume() {
         super.onResume();
+
+
+        initEvent();
 
 
     }
@@ -230,7 +208,6 @@ e.printStackTrace();
                     @Override
                     public void run() {
                         queryData(0, STATE_REFRESH);
-
                         postAdapter_2.notifyDataSetChanged();
                         ptrLayout.refreshComplete();
                         recyclerView_life.smoothScrollToPosition(0);
@@ -246,6 +223,7 @@ e.printStackTrace();
         BmobQuery<PostList> query = new BmobQuery<>();
         // 按时间降序查询
         query.order("-createdAt");
+        query.addWhereEqualTo("kind","2");
         int count = 0;
         // 如果是加载更多
         if (actionType == STATE_MORE) {
@@ -270,7 +248,9 @@ e.printStackTrace();
         // 设置每页数据个数
         query.setLimit(limit);
         // 查找数据
-        query.findObjects( new FindListener<PostList>() {
+        //final int finalPage = page;
+        final int finalPage = page;
+        query.findObjects(new FindListener<PostList>() {
             @Override
             public void done(List<PostList> list, BmobException e) {
                 if(e==null){
@@ -291,22 +271,61 @@ e.printStackTrace();
 
                         // 这里在每次加载完数据后，将当前页码+1，这样在上拉刷新的onPullUpToRefresh方法中就不需要操作curPage了
                         curPage++;
-//					 showToast("第"+(page+1)+"页数据加载完成");
+
+					 showToast("第"+(finalPage +1)+"页数据加载完成");
                     } else if (actionType == STATE_MORE) {
                         showToast("没有更多数据了");
                     } else if (actionType == STATE_REFRESH) {
                         showToast("没有数据");
                     }
+                    ptrLayout.refreshComplete();
 
+                }else{
+                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                    ptrLayout.refreshComplete();
+                }
+            }
+
+        });
+
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+    private void firstPage(){
+        BmobQuery<PostList> query = new BmobQuery<>();
+        // 按时间降序查询
+        query.order("-createdAt");
+        query.addWhereEqualTo("kind","2");
+        int count = 0;
+
+        query.setLimit(limit);
+        // 查找数据
+        //final int finalPage = page;
+
+        query.findObjects(new FindListener<PostList>() {
+            @Override
+            public void done(List<PostList> list, BmobException e) {
+                if(e==null){
+
+                        // 将本次查询的数据添加到bankCards中
+                        for (PostList td : list) {
+                            postList.add(td);
+                        }
+
+                        // 这里在每次加载完数据后，将当前页码+1，这样在上拉刷新的onPullUpToRefresh方法中就不需要操作curPage了
+                        curPage++;
+
+                        showToast("第"+"一"+"页数据加载完成");
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }
 
         });
-    }
-    private void showToast(String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+
+
     }
 
 }

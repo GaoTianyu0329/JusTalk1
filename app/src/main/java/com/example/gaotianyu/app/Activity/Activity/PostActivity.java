@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,7 +20,6 @@ import com.example.gaotianyu.app.R;
 
 import java.util.Calendar;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import okhttp3.FormBody;
@@ -34,16 +34,14 @@ private EditText postMian;
 private Button button_post;
 private Spinner spinner1;
 private Spinner spinner2;
-
+private String label1;
 private String kind;
 private String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
+
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-=======
->>>>>>> parent of 06bc97a... 将界面改为全屏，短信验证码的问题应该已经解决了，刷新的控件改为庄大佬的那个
 
          Intent intent = getIntent();
          kind = intent.getStringExtra("kind");
@@ -90,9 +88,9 @@ private String url;
                             int year = calendar.get(Calendar.YEAR);
                             int month = calendar.get(Calendar.MONTH)+1;
                             int day = calendar.get(Calendar.DAY_OF_MONTH);
-                            String label1 = spinner1.getSelectedItem().toString();
+                            label1 = spinner1.getSelectedItem().toString();
 
-                            if (kind.equals(3)){
+                            if (kind.equals("3")){
                                 label1 +="#"+spinner2.getSelectedItem().toString();
                             }
 
@@ -110,12 +108,14 @@ private String url;
                                 postList.setContent(main);
                                 postList.setTime(year+"-"+month+"-"+day);
                                 postList.setLabel(label1);
+
                                 postList.save(new SaveListener<String>() {
 
                                     @Override
                                     public void done(String objectId, BmobException e) {
                                         if(e==null){
                                             Toast.makeText(PostActivity.this,"发帖成功",Toast.LENGTH_SHORT).show();
+                                            finish();
 
                                         }else{
                                             Toast.makeText(PostActivity.this,"发帖失败",Toast.LENGTH_SHORT).show();
@@ -124,6 +124,7 @@ private String url;
                                         }
                                     }
                                 });
+
 
                                 /*
                                 OkHttpClient client = new OkHttpClient();

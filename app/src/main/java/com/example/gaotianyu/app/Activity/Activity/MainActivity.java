@@ -1,8 +1,6 @@
 package com.example.gaotianyu.app.Activity.Activity;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,20 +10,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.gaotianyu.app.Activity.Fragment.GerenFragment;
 
 import com.example.gaotianyu.app.Activity.Fragment.LifeFragment;
 import com.example.gaotianyu.app.Activity.Fragment.SaishiFragment;
 import com.example.gaotianyu.app.Activity.Fragment.StudyFragment;
+import com.example.gaotianyu.app.Activity.Tools.ButtonSlop;
 import com.example.gaotianyu.app.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -79,14 +72,26 @@ private DrawerLayout drawerLayout;
         switch (v.getId()){
             case R.id.button_saishi:
                 //title.setText("赛事");
+                if (ButtonSlop.check(R.id.button_saishi)) {
+                    //Toast.makeText(PostActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 replaceFragment(new SaishiFragment());
                 break;
             case R.id.button_life:
+                if (ButtonSlop.check(R.id.button_life)) {
+                    //Toast.makeText(PostActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //title.setText("生活助手");
                 replaceFragment(new LifeFragment());
                 break;
             case R.id.button_study:
+                if (ButtonSlop.check(R.id.button_study)) {
+                    //Toast.makeText(PostActivity.this,"请稍后尝试",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //title.setText("学术交流");
                 replaceFragment(new StudyFragment());
                 break;
@@ -103,7 +108,7 @@ private DrawerLayout drawerLayout;
         }
     }
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.toolbar,menu);
+        getMenuInflater().inflate(R.menu.toolbar_main,menu);
         return true;
     }
     @Override

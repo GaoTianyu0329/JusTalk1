@@ -49,7 +49,7 @@
             android:layout_marginLeft="5dp"
             android:layout_width="160dp"
             android:layout_height="match_parent"
-            android:entries="@array/label_4">
+            android:entries="@array/label4">
         </Spinner>
     </LinearLayout>
 

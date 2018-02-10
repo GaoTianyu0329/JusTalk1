@@ -12,8 +12,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission
-        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name="com.mob.MobApplication"
@@ -38,10 +37,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
             android:name=".Activity.Activity.MainActivity"
             android:label="Justalk"
@@ -71,7 +67,13 @@
             android:name="Mob-AppSecret"
             android:value="34656ba1883e630a8834fb48404f8225" />
 
-        <activity android:name=".Activity.Activity.PostActivity"></activity>
+        <activity android:name=".Activity.Activity.PostActivity" />
+        <activity
+            android:name=".Activity.Activity.ShowActivity"
+            android:label="详情"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
     </application>
 
 </manifest>

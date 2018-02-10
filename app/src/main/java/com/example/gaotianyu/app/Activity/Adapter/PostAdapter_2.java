@@ -1,11 +1,14 @@
 package com.example.gaotianyu.app.Activity.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.gaotianyu.app.Activity.Activity.ShowActivity;
 import com.example.gaotianyu.app.Activity.PostList.PostList;
 import com.example.gaotianyu.app.Activity.PostList.PostList_1;
 import com.example.gaotianyu.app.Activity.PostList.PostList_2;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class PostAdapter_2 extends RecyclerView.Adapter<PostAdapter_2.ViewHolder> {
     private List<PostList> postList;
+    private Context context;
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView label;
         TextView time;
@@ -37,14 +41,21 @@ public class PostAdapter_2 extends RecyclerView.Adapter<PostAdapter_2.ViewHolder
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_postlist,parent,false);
         final PostAdapter_2.ViewHolder holder = new PostAdapter_2.ViewHolder(view);
         holder.listView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = v.getContext();
                 int position = holder.getAdapterPosition();
                 PostList postList2 = postList.get(position);
+                Intent intent = new Intent(context,ShowActivity.class);
+                intent.putExtra("post_data",postList2);
+                intent.putExtra("kind","2");
+                context.startActivity(intent);
+
                 //添加点击跳转
 
             }

@@ -1,49 +1,30 @@
 package com.example.gaotianyu.app.Activity.Fragment;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gaotianyu.app.Activity.Activity.LoginActivity;
-import com.example.gaotianyu.app.Activity.Activity.MessageActivity;
-import com.example.gaotianyu.app.Activity.Activity.StartActivity;
-import com.example.gaotianyu.app.Activity.Tools.PhotoTool;
-import com.example.gaotianyu.app.Activity.User.UserManage;
 import com.example.gaotianyu.app.R;
-import com.vondear.rxtools.RxImageTool;
-import com.vondear.rxtools.RxIntentTool;
-import com.vondear.rxtools.RxPhotoTool;
-import com.vondear.rxtools.RxTool;
-import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,9 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -453,14 +432,14 @@ public class GerenFragment extends Fragment {
             imagePath = uri.getPath();
         }
         uri = Uri.parse(imagePath);
-        RxPhotoTool.cropImage(getActivity(),uri);// 根据图片路径显示图片
+        //RxPhotoTool.cropImage(getActivity(),uri);// 根据图片路径显示图片
     }
 
     private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
         uri = Uri.parse(imagePath);
-        RxPhotoTool.cropImage(getActivity(),uri);
+        //RxPhotoTool.cropImage(getActivity(),uri);
     }
 
     private String getImagePath(Uri uri, String selection) {

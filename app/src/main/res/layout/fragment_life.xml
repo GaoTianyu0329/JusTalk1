@@ -26,7 +26,11 @@
 
             />
     </LinearLayout>
-<<<<<<< HEAD
+
+
+
+
+
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
@@ -47,24 +51,8 @@
         </android.support.v7.widget.RecyclerView>
 
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-=======
-
->>>>>>> parent of 06bc97a... 将界面改为全屏，短信验证码的问题应该已经解决了，刷新的控件改为庄大佬的那个
 
 
-<com.example.gaotianyu.app.Activity.UI.NormalPullToRefreshLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/refreshlayout">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_life"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
-</com.example.gaotianyu.app.Activity.UI.NormalPullToRefreshLayout>
 
 
 

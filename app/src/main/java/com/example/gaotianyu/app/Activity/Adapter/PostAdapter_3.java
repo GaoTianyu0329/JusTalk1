@@ -1,11 +1,15 @@
 package com.example.gaotianyu.app.Activity.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.gaotianyu.app.Activity.Activity.ShowActivity;
+import com.example.gaotianyu.app.Activity.PostList.PostList;
 import com.example.gaotianyu.app.Activity.PostList.PostList_1;
 import com.example.gaotianyu.app.Activity.PostList.PostList_3;
 import com.example.gaotianyu.app.R;
@@ -17,9 +21,10 @@ import java.util.List;
  */
 
 public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder> {
-    private List<PostList_3> postList;
-    private String label_1;
-    private String label_2;
+    private Context context;
+    private List<PostList> postList;
+    private String label_1 = null;
+    private String label_2 = null;
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView label;
         TextView time;
@@ -33,7 +38,7 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
             title=(TextView)view.findViewById(R.id.postlist_title);
         }
     }
-    public PostAdapter_3(List<PostList_3> postList){
+    public PostAdapter_3(List<PostList> postList){
         this.postList=postList;
     }
     @Override
@@ -45,7 +50,12 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                PostList_3 postList3 = postList.get(position);
+                PostList postList3 = postList.get(position);
+                context = v.getContext();
+                Intent intent = new Intent(context,ShowActivity.class);
+                intent.putExtra("post_data",postList3);
+                intent.putExtra("kind","3");
+                context.startActivity(intent);
                 //添加点击跳转
 
             }
@@ -54,7 +64,7 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
     }
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
-        PostList_3 postList_3 = postList.get(position);
+        PostList postList_3 = postList.get(position);
         getLabel(postList_3);
         holder.label.setText("["+label_1+"]["+label_2+"]");
         holder.time.setText(postList_3.getTime());
@@ -64,7 +74,7 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
     public int getItemCount(){
         return postList.size();
     }
-    private void getLabel(PostList_3 postList_3){
+    private void getLabel(PostList postList_3){
         String label= postList_3.getLabel();
         for (int i=0;i<label.length();i++){
             if (label.charAt(i)=='#'){

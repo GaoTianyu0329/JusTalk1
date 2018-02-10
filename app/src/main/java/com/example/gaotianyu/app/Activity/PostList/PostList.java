@@ -1,12 +1,15 @@
 package com.example.gaotianyu.app.Activity.PostList;
 
+
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 
 /**
  * Created by GaoTianyu on 2017/12/28.
  */
 
-public class PostList extends BmobObject {
+public class PostList extends BmobObject implements Serializable{
     private String kind;
 
     private String uesrid;
