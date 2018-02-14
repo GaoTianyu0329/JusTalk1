@@ -22,7 +22,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:src="@mipmap/ic_launcher_round"
+                android:id="@+id/touxiang"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,7 +43,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:id="@+id/time"
-                    android:text="nickname"/>
+                    />
             </LinearLayout>
 
 
@@ -72,11 +73,13 @@
 
                         android:textSize="20dp"/>
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/label1"
                         android:textSize="20dp"/>
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/label2"
@@ -104,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/title"
                     android:textSize="15dp"
-                    android:text="title"/>
+                    />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
@@ -126,7 +129,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/main"
                     android:textSize="15dp"
-                    android:text="title"/>
+                    />
 
             </LinearLayout>
         </ScrollView>
