@@ -53,7 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:id="@+id/mycollection">
         <ImageView
 
             android:layout_width="40dp"
@@ -61,6 +62,7 @@
             android:layout_gravity="center"
             android:src="@drawable/shoucang"/>
         <TextView
+
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:textColor="#FFFFFF"
@@ -103,6 +105,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/exit"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:gravity="center"

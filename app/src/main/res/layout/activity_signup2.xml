@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/signup">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="@drawable/top"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Base.AlertDialog.AppCompat.Light"
+        ></android.support.v7.widget.Toolbar>
+    <EditText
+        android:id="@+id/sign_nickname"
+        android:layout_marginTop="5dp"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:hint="请输入昵称" />
+    <EditText
+        android:id="@+id/sign_user"
+        android:layout_marginTop="5dp"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:hint="请输入账号" />
+    <EditText
+        android:id="@+id/sign_pwd1"
+        android:layout_marginTop="5dp"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:hint="请输入密码" />
+    <EditText
+        android:id="@+id/sign_pwd2"
+        android:layout_marginTop="5dp"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:hint="请确认密码" />
+    <Button
+        android:background="@drawable/button"
+        android:textColor="#FFFFFF"
+        android:id="@+id/button_signup"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="注册账号"
+        android:textSize="20dp" />
+
+
+</LinearLayout>

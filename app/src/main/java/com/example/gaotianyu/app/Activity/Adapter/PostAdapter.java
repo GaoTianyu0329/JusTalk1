@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.example.gaotianyu.app.Activity.Activity.ShowActivity;
 import com.example.gaotianyu.app.Activity.PostList.PostList;
-import com.example.gaotianyu.app.Activity.PostList.PostList_1;
-import com.example.gaotianyu.app.Activity.PostList.PostList_3;
 import com.example.gaotianyu.app.R;
 
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.List;
  * Created by GaoTianyu on 2017/12/12.
  */
 
-public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context context;
     private List<PostList> postList;
     private String label_1 = null;
@@ -38,14 +36,14 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
             title=(TextView)view.findViewById(R.id.postlist_title);
         }
     }
-    public PostAdapter_3(List<PostList> postList){
+    public PostAdapter(List<PostList> postList){
         this.postList=postList;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_postlist,parent,false);
-        final PostAdapter_3.ViewHolder holder = new PostAdapter_3.ViewHolder(view);
+        final PostAdapter.ViewHolder holder = new PostAdapter.ViewHolder(view);
         holder.listView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +64,12 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
     public void onBindViewHolder(ViewHolder holder,int position){
         PostList postList_3 = postList.get(position);
         getLabel(postList_3);
-        holder.label.setText("["+label_1+"]["+label_2+"]");
+        if (label_2==null){
+            holder.label.setText("["+label_1+"]");
+        }else{
+            holder.label.setText("["+label_1+"]["+label_2+"]");
+        }
+
         holder.time.setText(postList_3.getTime());
         holder.title.setText(postList_3.getTitle());
     }
@@ -80,10 +83,12 @@ public class PostAdapter_3 extends RecyclerView.Adapter<PostAdapter_3.ViewHolder
             if (label.charAt(i)=='#'){
                 label_1 = label.substring(0,i);
                 label_2 = label.substring(i+1);
+                return;
             }
 
-            }
         }
+        label_1 = label;
+    }
 
 
 }

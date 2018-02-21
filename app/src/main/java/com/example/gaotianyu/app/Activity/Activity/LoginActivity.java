@@ -20,8 +20,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.example.gaotianyu.app.R.id.button_login;
-
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private EditText editText_user;
@@ -106,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         textView_signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,SigninActivity.class);
+                Intent intent = new Intent(LoginActivity.this,Signup1Activity.class);
                 startActivity(intent);
             }
         });

@@ -13,11 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.gaotianyu.app.Activity.Activity.PostActivity;
-import com.example.gaotianyu.app.Activity.Adapter.PostAdapter_1;
-import com.example.gaotianyu.app.Activity.Adapter.PostAdapter_3;
+import com.example.gaotianyu.app.Activity.Adapter.PostAdapter;
 import com.example.gaotianyu.app.Activity.PostList.PostList;
-import com.example.gaotianyu.app.Activity.PostList.PostList_1;
-import com.example.gaotianyu.app.Activity.PostList.PostList_3;
 import com.example.gaotianyu.app.Activity.PostList.PostList_3;
 import com.example.gaotianyu.app.R;
 import com.google.gson.Gson;
@@ -34,7 +31,6 @@ import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import okhttp3.FormBody;
@@ -49,7 +45,7 @@ import okhttp3.Response;
 
 public class StudyFragment extends Fragment {
     private List<PostList> postList = new ArrayList<>();
-    PostAdapter_3 postAdapter_3;
+    PostAdapter postAdapter_;
     private Button button;
     private String url_onOreate;
     RecyclerView recyclerView_study;
@@ -105,7 +101,7 @@ public class StudyFragment extends Fragment {
                     @Override
                     public void run() {
                         queryData(curPage, STATE_MORE);
-                        postAdapter_3.notifyDataSetChanged();
+                        postAdapter_.notifyDataSetChanged();
                         ptrLayout.refreshComplete();
                         recyclerView_study.smoothScrollToPosition(postList.size() - 1);
                     }
@@ -118,7 +114,7 @@ public class StudyFragment extends Fragment {
                     @Override
                     public void run() {
                         queryData(0, STATE_REFRESH);
-                        postAdapter_3.notifyDataSetChanged();
+                        postAdapter_.notifyDataSetChanged();
                         ptrLayout.refreshComplete();
                         recyclerView_study.smoothScrollToPosition(0);
                     }
@@ -299,8 +295,8 @@ public class StudyFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView_study.setLayoutManager(layoutManager);
-        postAdapter_3 = new PostAdapter_3(postList);
-        recyclerView_study.setAdapter(postAdapter_3);
+        postAdapter_ = new PostAdapter(postList);
+        recyclerView_study.setAdapter(postAdapter_);
 
     }
 }
