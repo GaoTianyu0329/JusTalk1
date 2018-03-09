@@ -68,6 +68,9 @@
 
         <activity android:name=".Activity.Activity.PostActivity" />
         <activity
+            android:name=".Activity.Activity.Signup2Activity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
             android:name=".Activity.Activity.ShowActivity"
             android:label="详情"
             android:theme="@style/AppTheme"

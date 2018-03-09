@@ -334,7 +334,7 @@ private DrawerLayout drawerLayout;
                             intent.putExtra("outputX", 300);
                             intent.putExtra("outputY", 300);
                             intent.putExtra("circleCrop",true);
-                            intent.putExtra("return-data", false);
+                            intent.putExtra("return-data", true);
                             intent.putExtra("noFaceDetection", true);
 
                             File out = new File(getExternalCacheDir(),"output_image.jpg");
@@ -351,7 +351,7 @@ private DrawerLayout drawerLayout;
 
                     break;
                 case CROP_SMALL_PICTURE:
-
+                    setImageToView(data);
                     break;
             }
         }
@@ -423,7 +423,7 @@ private DrawerLayout drawerLayout;
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
         intent.putExtra("circleCrop",true);
-        intent.putExtra("return-data", false);
+        intent.putExtra("return-data", true);
         intent.putExtra("noFaceDetection", true);
 
         File out = new File(imagePath);

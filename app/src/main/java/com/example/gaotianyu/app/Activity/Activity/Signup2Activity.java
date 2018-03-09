@@ -67,6 +67,7 @@ public class Signup2Activity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(Signup2Activity.this, "请稍后尝试", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 user = editText_user.getText().toString();
                 pwd1 = editText_pwd1.getText().toString();
                 pwd2 = editText_pwd2.getText().toString();
@@ -84,7 +85,7 @@ public class Signup2Activity extends AppCompatActivity implements View.OnClickLi
                             if (!pwd1.equals(pwd2)) {
                                 Toast.makeText(Signup2Activity.this, "两次输入的密码不同！", Toast.LENGTH_SHORT).show();
                             } else {
-                                Looper.prepare();
+
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -133,12 +134,13 @@ public class Signup2Activity extends AppCompatActivity implements View.OnClickLi
 
                                     }
                                 }).start();
-                                Looper.loop();
+
 
                             }
 
                         }
                     }
+
                     break;
                 }
         }

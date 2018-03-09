@@ -19,6 +19,7 @@
         android:textColorHint="#FFFFFF"
         android:textColor="#FFFFFF"
         />
+
     <EditText
         android:layout_marginTop="10dp"
         android:id="@+id/et_pwd"
@@ -30,6 +31,7 @@
         android:textColorHint="#FFFFFF"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"/>
+
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
